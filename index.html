@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Irodori Learning Portal - Bab 2 s.d. Bab 7</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-indigo-600 text-white shadow-lg">
+        <div class="max-w-6xl mx-auto px-4 py-6 flex flex-col md:flex-row justify-between items-center">
+            <div>
+                <h1 class="text-2xl md:text-3xl font-bold">🌸 Irodori Learning Portal</h1>
+                <p class="text-indigo-200 text-sm mt-1">Materi & Latihan Soal Bahasa Jepang (Bab 2 - Bab 7)</p>
+            </div>
+            <div class="mt-4 md:mt-0 bg-indigo-700 px-4 py-2 rounded-xl text-sm font-medium border border-indigo-500">
+                📚 Status: Siap Belajar
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigasi Bab -->
+    <nav class="bg-white shadow-sm border-b sticky top-0 z-10">
+        <div class="max-w-6xl mx-auto px-4 overflow-x-auto flex space-x-2 py-3 scrollbar-none">
+            <button onclick="switchChapter(2)" id="btn-ch2" class="chapter-btn px-4 py-2 rounded-lg font-semibold text-sm transition bg-indigo-600 text-white shadow">Bab 2 (Bahasa)</button>
+            <button onclick="switchChapter(3)" id="btn-ch3" class="chapter-btn px-4 py-2 rounded-lg font-semibold text-sm transition bg-slate-100 text-slate-600 hover:bg-slate-200">Bab 3 (Perkenalan)</button>
+            <button onclick="switchChapter(4)" id="btn-ch4" class="chapter-btn px-4 py-2 rounded-lg font-semibold text-sm transition bg-slate-100 text-slate-600 hover:bg-slate-200">Bab 4 (Keluarga/Tempat)</button>
+            <button onclick="switchChapter(5)" id="btn-ch5" class="chapter-btn px-4 py-2 rounded-lg font-semibold text-sm transition bg-slate-100 text-slate-600 hover:bg-slate-200">Bab 5 (Makanan/Minuman)</button>
+            <button onclick="switchChapter(6)" id="btn-ch6" class="chapter-btn px-4 py-2 rounded-lg font-semibold text-sm transition bg-slate-100 text-slate-600 hover:bg-slate-200">Bab 6 (Restoran/Izakaya)</button>
+            <button onclick="switchChapter(7)" id="btn-ch7" class="chapter-btn px-4 py-2 rounded-lg font-semibold text-sm transition bg-slate-100 text-slate-600 hover:bg-slate-200">Bab 7 (Rumah & Fasilitas)</button>
+        </div>
+    </nav>
+
+    <!-- Konten Utama -->
+    <main class="max-w-6xl mx-auto px-4 py-8 flex-grow w-full">
+
+        <!-- Area Tampilan Bab -->
+        <div id="chapter-content" class="space-y-8">
+            <!-- Konten akan dimuat secara dinamis via JavaScript -->
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t mt-12 py-6 text-center text-sm text-slate-500">
+        <p>Dibuat khusus untuk Belajar Bahasa Jepang Irodori Tingkat Pemula (入門).</p>
+    </footer>
+
+    <!-- Script Data & Logika Aplikasi -->
+    <script>
+        const chaptersData = {
+            2: {
+                title: "Bab 2: Sumimasen, yoku wakarimasen (Maaf, saya kurang paham)",
+                goal: "Mampu meminta pengulangan, menanyakan kemampuan bahasa, dan menanyakan nama benda dalam bahasa Jepang.",
+                vocab: [
+                    { jp: "もう一度、お願いします", romaji: "moo ichido, onegaishimasu", id: "Sekali lagi, mohon bantuan/ulangi" },
+                    { jp: "ゆっくり言ってください", romaji: "yukkuri itte kudasai", id: "Tolong ucapkan lebih pelan" },
+                    { jp: "日本語、できますか？", romaji: "nihongo, dekimasu ka?", id: "Apakah bisa bahasa Jepang?" },
+                    { jp: "これは日本語で何ですか？", romaji: "kore wa nihongo de nan desu ka?", id: "Apa bahasa Jepangnya ini?" },
+                    { jp: "在留カード", romaji: "zairyuu kaado", id: "Kartu Izin Tinggal" }
+                ],
+                grammar: [
+                    { pattern: "〜, ませんか / お願いします", desc: "Digunakan untuk meminta bantuan atau pengulangan, misal: 'Moo ichido, onegaishimasu'." },
+                    { pattern: "N は 日本語で 何ですか？", desc: "Digunakan untuk menanyakan penyebutan suatu hal/benda dalam bahasa Jepang." }
+                ],
+                quiz: [
+                    {
+                        question: "Ungkapan apa yang digunakan jika Anda ingin meminta lawan bicara mengulangi ucapannya?",
+                        options: ["Wakarimashita", "Moo ichido, onegaishimasu", "Arigatou gozaimasu", "Ie, kekkou desu"],
+                        answer: 1
+                    },
+                    {
+                        question: "Bagaimana cara menanyakan 'Apa bahasa Jepangnya kartu izin tinggal?'",
+                        options: ["Zairyuu kaado wa nihongo de nan desu ka?", "Nihongo dekimasu ka?", "Kore wa nan desu ka?", "Heya wa doko desu ka?"],
+                        answer: 0
+                    }
+                ]
+            },
+            3: {
+                title: "Bab 3: Yoroshiku onegaishimasu (Salam kenal)",
+                goal: "Mampu memperkenalkan diri, menyebutkan asal negara/kota, dan mengisi formulir pendaftaran.",
+                vocab: [
+                    { jp: "はじめまして", romaji: "hajimete", id: "Perkenalkan / Salam kenal" },
+                    { jp: "出身", romaji: "shusshin", id: "Asal / Daerah asal" },
+                    { jp: "国籍", romaji: "kokuseki", id: "Kewarganegaraan" },
+                    { jp: "生年月日", romaji: "seinengappi", id: "Tanggal lahir" },
+                    { jp: "申込書", romaji: "moushikomisho", id: "Formulir pendaftaran" }
+                ],
+                grammar: [
+                    { pattern: "[Nama] desu", desc: "Menyebutkan nama diri, misal: 'Ton desu'." },
+                    { pattern: "[Negara/Kota] kara kimashita", desc: "Menyatakan asal daerah/negara, misal: 'Tai kara kimashita'." },
+                    { pattern: "N じゃないです", desc: "Bentuk negatif nomina, misal: 'Betonamu ja nai desu'." }
+                ],
+                quiz: [
+                    {
+                        question: "Bagaimana cara menyatakan 'Saya berasal dari Thailand'?",
+                        options: ["Tai desu", "Tai kara kimashita", "Tai ni sunde imasu", "Tai no hito desu"],
+                        answer: 1
+                    },
+                    {
+                        question: "Apa arti dari 'O-namae wa?'",
+                        options: ["Di mana rumahmu?", "Berapa umurmu?", "Siapa nama Anda?", "Dari mana asalmu?"],
+                        answer: 2
+                    }
+                ]
+            },
+            4: {
+                title: "Bab 4: Tokyo ni sunde imasu (Saya tinggal di Tokyo)",
+                goal: "Mampu memperkenalkan anggota keluarga, menyatakan usia, tempat tinggal, dan mendeskripsikan foto.",
+                vocab: [
+                    { jp: "父 / 母", romaji: "chichi / haha", id: "Ayah / Ibu (sendiri)" },
+                    { jp: "兄 / 姉", romaji: "ani / ane", id: "Kakak laki-laki / Kakak perempuan" },
+                    { jp: "弟 / 妹", romaji: "otouto / imouto", id: "Adik laki-laki / Adik perempuan" },
+                    { jp: "夫 / 妻", romaji: "otto / tsuma", id: "Suami / Istri" },
+                    { jp: "住んでいます", romaji: "sunde imasu", id: "Tinggal / Berdomisili" }
+                ],
+                grammar: [
+                    { pattern: "N1 と N2", desc: "Menghubungkan nomina (dan), misal: 'Otto to kodomo'." },
+                    { pattern: "[Tempat] ni sunde imasu", desc: "Menyatakan tempat tinggal, misal: 'Tokyo ni sunde imasu'." },
+                    { pattern: "N1 の N2", desc: "Kepemilikan / keterkaitan, misal: 'Watashi no haha' (ibu saya)." }
+                ],
+                quiz: [
+                    {
+                        question: "Bagaimana cara mengatakan 'Saya tinggal di Akabane'?",
+                        options: ["Akabane desu", "Akabane ni sunde imasu", "Akabane kara kimashita", "Akabane wa doko desu ka"],
+                        answer: 1
+                    },
+                    {
+                        question: "Apa arti dari 'Watashi no haha'?",
+                        options: ["Ibu saya", "Ayah saya", "Kakak saya", "Anak saya"],
+                        answer: 0
+                    }
+                ]
+            },
+            5: {
+                title: "Bab 5: Udon ga suki desu (Saya suka udon)",
+                goal: "Mampu menyatakan makanan/minuman yang disukai & tidak disukai, serta membicarakan menu sarapan.",
+                vocab: [
+                    { jp: "好き (な)", romaji: "suki (na)", id: "Suka" },
+                    { jp: "刺身 / 寿司", romaji: "sashimi / sshi", id: "Sashimi / Sushi" },
+                    { jp: "納豆 / 梅干し", romaji: "natto / umeboshi", id: "Natto / Asinan plum" },
+                    { jp: "朝ご飯", romaji: "asagohan", id: "Sarapan pagi" },
+                    { jp: "食べます / 飲みます", romaji: "tabemasu / nomimasu", id: "Makan / Minum" }
+                ],
+                grammar: [
+                    { pattern: "N が 好きです", desc: "Menyatakan hal yang disukai, misal: 'Udon ga suki desu'." },
+                    { pattern: "N は 好きじゃないです", desc: "Menyatakan tidak suka, misal: 'Sakana wa suki ja nai desu'." },
+                    { pattern: "N を 食べます / 飲みます", desc: "Objek kegiatan makan/minum, misal: 'Pan o tabemasu'." }
+                ],
+                quiz: [
+                    {
+                        question: "Bagaimana cara menyatakan 'Saya suka sushi'?",
+                        options: ["Sushi wa suki desu", "Sushi ga suki desu", "Sushi o tabemasu", "Sushi desu"],
+                        answer: 1
+                    },
+                    {
+                        question: "Apa arti dari 'Asagohan wa amari tabemasen'?",
+                        options: ["Saya selalu sarapan", "Saya jarang sarapan pagi", "Saya tidak suka makan", "Saya makan pagi setiap hari"],
+                        answer: 1
+                    }
+                ]
+            },
+            6: {
+                title: "Bab 6: Chiizu baagaa kudasai (Tolong beri saya burger keju)",
+                goal: "Mampu memesan makanan di restoran cepat saji & Izakaya, menyebutkan jumlah, dan menanyakan ketersediaan.",
+                vocab: [
+                    { jp: "単品 / セット", romaji: "tanpin / setto", id: "Menu satuan / Menu paket" },
+                    { jp: "テイクアウト / ここで", romaji: "teikauto / koko de", id: "Bawa pulang / Makan di tempat" },
+                    { jp: "生ビール", romaji: "nama biiru", id: "Draft beer (bir segar)" },
+                    { jp: "枝豆", romaji: "edamame", id: "Kacang kedelai jepang (otsumami)" },
+                    { jp: "一つ / 二つ", romaji: "hitotsu / futatsu", id: "1 buah / 2 buah (hitungan benda)" }
+                ],
+                grammar: [
+                    { pattern: "N [Jumlah] kudasai / onegaishimasu", desc: "Memesan barang/makanan dengan jumlahnya, misal: 'Biiru mittsu onegaishimasu'." },
+                    { pattern: "N は ありますか？", desc: "Menanyakan ketersediaan sesuatu, misal: 'Mayoneezu arimasu ka?'" }
+                ],
+                quiz: [
+                    {
+                        question: "Bagaimana cara memesan '2 porsi edamame'?",
+                        options: ["Edamame ni kudasai", "Edamame futatsu kudasai", "Futatsu edamame kudasai", "Edamame o kudasai"],
+                        answer: 1
+                    },
+                    {
+                        question: "Apa arti dari 'Koko de omeshagari desu ka?'",
+                        options: ["Apakah dibawa pulang?", "Apakah makan di sini?", "Apakah ada menu baru?", "Apakah sudah pesan?"],
+                        answer: 1
+                    }
+                ]
+            },
+            7: {
+                title: "Bab 7: Heya ga yon-tsu arimasu (Ada 4 buah ruangan)",
+                goal: "Mampu memandu melihat rumah, menanyakan fasilitas/perabotan, dan mendeskripsikan kondisi tempat tinggal.",
+                vocab: [
+                    { jp: "玄関 / お風呂 / トイレ", romaji: "genkan / ofuro / toire", id: "Pintu masuk / Kamar mandi / Toilet" },
+                    { jp: "エアコン / 冷蔵庫", romaji: "eakon / reizouko", id: "AC / Kulkas" },
+                    { jp: "広い / せまい", romaji: "hiroi / semai", id: "Luas / Sempit" },
+                    { jp: "きれいな / 静かな", romaji: "kireina / shizukana", id: "Bersih / Tenang/Sepi" },
+                    { jp: "アパート / マンション / 寮", romaji: "apaato / manshon / ryou", id: "Apartemen / Kondominium / Asrama" }
+                ],
+                grammar: [
+                    { pattern: "[Tempat] ni [Benda] ga arimasu", desc: "Menyatakan keberadaan benda di suatu tempat, misal: 'Koko ni kaidan ga arimasu'." },
+                    { pattern: "N wa arimasen / nai desu", desc: "Bentuk negatif keberadaan, misal: 'Denshi renji wa arimasen'." },
+                    { pattern: "Adjektiva Na/I + desu", desc: "Menyatakan sifat/kondisi, misal: 'Heya wa hiroi desu', 'Machida wa shizuka desu'." }
+                ],
+                quiz: [
+                    {
+                        question: "Bagaimana cara menyatakan 'Di lantai 1 ada 4 kamar'?",
+                        options: ["Ikkai ni heya ga yon-tsu arimasu", "Heya ni ikkai ga arimasu", "Yon-tsu ni heya ga arimasu", "Ikkai wa heya desu"],
+                        answer: 0
+                    },
+                    {
+                        question: "Apa bentuk negatif dari 'Hiroi desu' (luas)?",
+                        options: ["Hiroi ja nai desu", "Hirokunai desu", "Hiroku arimasen", "Semai desu"],
+                        answer: 1
+                    }
+                ]
+            }
+        };
+
+        let currentChapter = 2;
+
+        function switchChapter(chNum) {
+            currentChapter = chNum;
+            
+            // Update UI tombol aktif
+            document.querySelectorAll('.chapter-btn').forEach(btn => {
+                btn.className = "chapter-btn px-4 py-2 rounded-lg font-semibold text-sm transition bg-slate-100 text-slate-600 hover:bg-slate-200";
+            });
+            document.getElementById(`btn-ch${chNum}`).className = "chapter-btn px-4 py-2 rounded-lg font-semibold text-sm transition bg-indigo-600 text-white shadow";
+
+            renderChapterContent(chNum);
+        }
+
+        function renderChapterContent(chNum) {
+            const data = chaptersData[chNum];
+            const container = document.getElementById('chapter-content');
+
+            let vocabHTML = data.vocab.map(v => `
+                <tr class="border-b hover:bg-slate-50">
+                    <td class="py-3 px-4 font-semibold text-indigo-600">${v.jp}</td>
+                    <td class="py-3 px-4 text-slate-600 font-mono text-sm">${v.romaji}</td>
+                    <td class="py-3 px-4 text-slate-700">${v.id}</td>
+                </tr>
+            `).join('');
+
+            let grammarHTML = data.grammar.map(g => `
+                <div class="bg-indigo-50 border-l-4 border-indigo-600 p-4 rounded-r-xl">
+                    <h4 class="font-bold text-indigo-900">${g.pattern}</h4>
+                    <p class="text-indigo-700 text-sm mt-1">${g.desc}</p>
+                </div>
+            `).join('');
+
+            let quizHTML = data.quiz.map((q, qIdx) => `
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                    <p class="font-semibold text-slate-800">Soal ${qIdx + 1}: ${q.question}</p>
+                    <div class="space-y-2">
+                        ${q.options.map((opt, oIdx) => `
+                            <label class="flex items-center space-x-3 p-3 rounded-xl border border-slate-100 bg-slate-50 hover:bg-indigo-50 cursor-pointer transition">
+                                <input type="radio" name="q_${chNum}_${qIdx}" value="${oIdx}" class="text-indigo-600 focus:ring-indigo-500 h-4 w-4">
+                                <span class="text-slate-700 text-sm">${opt}</span>
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+
+            container.innerHTML = `
+                <!-- Judul & Tujuan -->
+                <div class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200">
+                    <span class="bg-indigo-100 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Bab ${chNum} Irodori</span>
+                    <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mt-3">${data.title}</h2>
+                    <p class="text-slate-600 mt-2 text-sm md:text-base">🎯 <strong>Can-Do:</strong> ${data.goal}</p>
+                </div>
+
+                <!-- Kosakata Penting -->
+                <div class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200">
+                    <h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center">📖 Kosakata Penting (Kotoba)</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="border-b text-slate-400 text-xs uppercase tracking-wider">
+                                    <th class="py-2 px-4">Bahasa Jepang</th>
+                                    <th class="py-2 px-4">Romaji</th>
+                                    <th class="py-2 px-4">Arti (Indonesia)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${vocabHTML}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Catatan Tata Bahasa -->
+                <div class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200">
+                    <h3 class="text-xl font-bold text-slate-900 mb-4 flex items-center">✍️ Pola Kalimat & Tata Bahasa (Bunpou)</h3>
+                    <div class="space-y-4">
+                        ${grammarHTML}
+                    </div>
+                </div>
+
+                <!-- Latihan Kuis -->
+                <div class="bg-slate-900 text-white rounded-3xl p-6 md:p-8 shadow-xl">
+                    <h3 class="text-xl font-bold mb-2 flex items-center">📝 Latihan Soal Interaktif</h3>
+                    <p class="text-slate-400 text-sm mb-6">Uji pemahaman Anda terhadap materi Bab ${chNum} ini.</p>
+                    <div class="space-y-6">
+                        ${quizHTML}
+                    </div>
+                    <div class="mt-8 text-center">
+                        <button onclick="checkQuiz(${chNum})" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-8 py-3 rounded-xl transition shadow-lg">
+                            Periksa Jawaban 🚀
+                        </button>
+                        <div id="quiz-result-${chNum}" class="mt-4 text-lg font-semibold"></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function checkQuiz(chNum) {
+            const data = chaptersData[chNum].quiz;
+            let score = 0;
+            let total = data.length;
+
+            data.forEach((q, qIdx) => {
+                const selected = document.querySelector(`input[name="q_${chNum}_${qIdx}"]:checked`);
+                if (selected && parseInt(selected.value) === q.answer) {
+                    score++;
+                }
+            });
+
+            const resultDiv = document.getElementById(`quiz-result-${chNum}`);
+            if (score === total) {
+                resultDiv.innerHTML = `🎉 Hebat! Jawaban Anda benar semua (${score}/${total})! Pertahankan semangat belajarnya!`;
+                resultDiv.className = "mt-4 text-emerald-400 font-bold";
+            } else {
+                resultDiv.innerHTML = `💡 Anda mendapatkan skor ${score} dari ${total}. Coba tinjau kembali materi di atas dan ulangi lagi ya!`;
+                resultDiv.className = "mt-4 text-amber-300 font-bold";
+            }
+        }
+
+        // Muat bab 2 saat pertama kali dibuka
+        renderChapterContent(2);
+    </script>
+</body>
+</html>
